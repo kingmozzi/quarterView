@@ -54,6 +54,7 @@ public class Player : MonoBehaviour
         rigid = GetComponent<Rigidbody>();
         anim = GetComponentInChildren<Animator>();
         weaponIndex = -1;
+        isFireReady = true;
     }
 
     // Update is called once per frame
@@ -90,7 +91,7 @@ public class Player : MonoBehaviour
             moveVec = dodgeVec;
         }
 
-        if(isSwap)
+        if(isSwap || !isFireReady)
             moveVec = Vector3.zero;
         transform.position += moveVec * speed * (wDown?0.3f:1f) * Time.deltaTime;
         //rigid.MovePosition(moveVec * speed * (wDown?0.3f:1f) * Time.deltaTime);
@@ -192,7 +193,7 @@ public class Player : MonoBehaviour
         if(fDown && isFireReady && !isDodge && !isSwap)
         {
             equipWeapon.Use();
-            anim.SetTrigger("doSwing");
+            anim.SetTrigger(equipWeapon.type == Weapon.Type.Melee ?"doSwing":"doShot");
             fireDelay = 0;
         }
     }
