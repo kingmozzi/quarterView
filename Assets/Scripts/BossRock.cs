@@ -33,7 +33,7 @@ public class BossRock : Bullet
     {
         while(!isShoot){
             angularPower += 0.02f;
-            scaleValue += 0.0005f;
+            scaleValue += 0.0025f;
             transform.localScale = Vector3.one * scaleValue;
             rigid.AddTorque(transform.right * angularPower, ForceMode.Acceleration);
             yield return null;

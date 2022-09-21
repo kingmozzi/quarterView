@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     public bool[] hasWeapons;
     public Camera followCamera;
     public GameObject grenadeObj;
-
+    public GameManager manager;
 
     int weaponIndex;
 
@@ -48,6 +48,7 @@ public class Player : MonoBehaviour
     bool isBorder;
     bool isDamage;
     bool isShop;
+    bool isDead;
 
     Vector3 moveVec;
     Vector3 dodgeVec;
@@ -115,7 +116,7 @@ public class Player : MonoBehaviour
             moveVec = dodgeVec;
         }
 
-        if(isSwap || !isFireReady)
+        if(isSwap || !isFireReady || isDead)
             moveVec = Vector3.zero;
 
         if(!isBorder)
@@ -131,7 +132,7 @@ public class Player : MonoBehaviour
         transform.LookAt(transform.position + moveVec);
 
         //#2. 마우스에 의한 회전
-        if(fDown)
+        if(fDown && !isDead)
         {
             Ray ray = followCamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit rayHit;
@@ -147,7 +148,7 @@ public class Player : MonoBehaviour
 
     void Jump()
     {
-        if(jDown && moveVec == Vector3.zero && !isJump && !isDodge && !isSwap)
+        if(jDown && moveVec == Vector3.zero && !isJump && !isDodge && !isSwap && !isDead)
         {
             rigid.AddForce(Vector3.up * 9, ForceMode.Impulse);
             anim.SetBool("isJump", true);
@@ -158,7 +159,7 @@ public class Player : MonoBehaviour
 
     void Dodge()
     {
-        if(jDown && moveVec != Vector3.zero && !isDodge && !isJump && !isSwap && !isReload)
+        if(jDown && moveVec != Vector3.zero && !isDodge && !isJump && !isSwap && !isReload && !isDead)
         {
             dodgeVec = moveVec;
             speed *= 2;
@@ -177,7 +178,7 @@ public class Player : MonoBehaviour
 
     void Interation()
     {
-        if(iDown && nearObject != null && !isJump && !isDodge)
+        if(iDown && nearObject != null && !isJump && !isDodge && !isDead)
         {
             if(nearObject.tag == "Weapon")
             {
@@ -205,7 +206,7 @@ public class Player : MonoBehaviour
         if(weaponIndex != -1)
         {
             if (weapons[weaponIndex].activeSelf==true) //(weaponindex)번째 무기가 활성화 되어있는가? 
-            return; 
+                return; 
         }
         
 
@@ -382,6 +383,15 @@ public class Player : MonoBehaviour
         }
         if(isBossAtk)
             rigid.velocity = Vector3.zero;
+        if(health <= 0 && !isDead)
+            OnDie();
+    }
+
+    void OnDie()
+    {
+        anim.SetTrigger("doDie");
+        isDead = true;
+        manager.GameOver();
     }
 
     private void OnTriggerStay(Collider other) {
