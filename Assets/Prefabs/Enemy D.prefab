@@ -235,7 +235,7 @@ MonoBehaviour:
   - {fileID: 8925207629047981713, guid: 503e4246cbbd5b643838e0f3032b7774, type: 3}
   - {fileID: 4235999712080174591, guid: 631d7f184fbd31841bd93ff6618eca4f, type: 3}
   - {fileID: 2614677866890299877, guid: 54fc57dc2a97f64479056847d9bb9b36, type: 3}
-  score: 2000
+  score: 25000
   isChase: 0
   isAttack: 0
   isDead: 0

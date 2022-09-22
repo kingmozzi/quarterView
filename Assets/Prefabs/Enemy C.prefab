@@ -100,8 +100,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyType: 2
-  maxHealth: 50
-  curHealth: 50
+  maxHealth: 100
+  curHealth: 100
   target: {fileID: 0}
   meleeArea: {fileID: 0}
   bullet: {fileID: 3964530709497143532, guid: 7e77fc4228e2f714cad5992e7fdf2410, type: 3}
@@ -113,6 +113,7 @@ MonoBehaviour:
   isChase: 0
   isAttack: 0
   isDead: 0
+  manager: {fileID: 0}
   rigid: {fileID: 0}
   boxCollider: {fileID: 0}
   meshs: []

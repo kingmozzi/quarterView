@@ -6067,7 +6067,7 @@ MonoBehaviour:
   - {fileID: 8590619486952890095, guid: 939961a0f1795c34cb7be81c97cac7e1, type: 3}
   - {fileID: 2897157568177705958, guid: 521c7a140e805664b80574852fadff77, type: 3}
   - {fileID: 4683067595346346975, guid: 8c7532fb38dc4a64182aabe30d3fb326, type: 3}
-  itemPrice: e8030000b0040000c4090000
+  itemPrice: 20030000dc050000d0070000
   itemPos:
   - {fileID: 539604786}
   - {fileID: 1064206937}
@@ -7369,7 +7369,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 1,000
+  m_Text: 800
 --- !u!222 &505980220
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -27228,7 +27228,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 2,500
+  m_Text: 2,000
 --- !u!222 &1471719037
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -33462,7 +33462,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 1,200
+  m_Text: 1,500
 --- !u!222 &1723834619
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -33755,7 +33755,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  damage: 125
+  damage: 100
   rate: 0.5
   maxAmmo: 0
   curAmmo: 0
