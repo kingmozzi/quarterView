@@ -50,6 +50,8 @@ public class GameManager : MonoBehaviour
     public Text bestText;
     public Text curScoreText;
 
+    public Image fill;
+
     void Awake()
     {
         enemyList = new List<int>();
@@ -136,6 +138,7 @@ public class GameManager : MonoBehaviour
             boss = instantEnemy.GetComponent<Boss>();
             boss.maxHealth *= (stage/5);
             boss.curHealth *= (stage/5);
+            player.target = boss.transform;
         }
         else{
             for(int index=0; index<stage;index++)
@@ -174,7 +177,15 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(4f);
         boss = null;
+        player.target = null;
         StageEnd();
+    }
+
+    public void inCoolDown()
+    {
+        CoolDownUI instantCooldown = fill.GetComponent<CoolDownUI>();
+        //instantCooldown.fill = fill;
+        instantCooldown.currentCooldown = 5f;
     }
 
     void Update()

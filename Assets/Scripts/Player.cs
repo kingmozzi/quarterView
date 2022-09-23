@@ -11,6 +11,12 @@ public class Player : MonoBehaviour
     public GameObject grenadeObj;
     public GameManager manager;
 
+    public GameObject missile;
+    public int m_shotCount = 12; // 총 몇 개 발사할건지.
+    [Range(0, 1)] public float m_interval = 0.15f;
+    public int m_shotCountEveryInterval = 2; // 한번에 몇 개씩 발사할건지.
+    public Transform target;
+
     int weaponIndex;
 
     public int score;
@@ -39,6 +45,7 @@ public class Player : MonoBehaviour
     bool fDown;
     bool rDown;
     bool gDown;
+    bool qDown;
 
     bool isJump;
     bool isDodge;
@@ -49,6 +56,7 @@ public class Player : MonoBehaviour
     bool isDamage;
     bool isShop;
     bool isDead;
+    bool isQ;
 
     Vector3 moveVec;
     Vector3 dodgeVec;
@@ -91,6 +99,7 @@ public class Player : MonoBehaviour
         Attack();
         Reload();
         Grenade();
+        SkillQ();
     }
 
     void GetInput()
@@ -106,6 +115,7 @@ public class Player : MonoBehaviour
         fDown = Input.GetButton("Fire1");
         gDown = Input.GetButtonDown("Fire2");
         rDown = Input.GetButtonDown("Reload");
+        qDown = Input.GetButtonDown("SkillQ");
     }
 
     void Move()
@@ -310,6 +320,50 @@ public class Player : MonoBehaviour
                 grenades[hasGrenade].SetActive(false);
             }
         }
+    }
+
+    void SkillQ()
+    {
+        if(qDown && target != null && !isQ)
+        {
+            StartCoroutine(CreateMissile());
+            isQ=true;
+
+            manager.inCoolDown();
+            Invoke("CoolDownQ", 5f);
+            
+        }
+
+        if(qDown && target != null && isQ)
+        {
+            Debug.Log("CoolDown!");
+        }
+        
+    }
+
+    void CoolDownQ()
+    {
+        isQ= false;
+    }
+    
+    IEnumerator CreateMissile()
+    {
+        int _shotCount = m_shotCount;
+        while(_shotCount > 0)
+        {
+            for(int i=0; i<m_shotCountEveryInterval;i++)
+            {
+                if(_shotCount>0)
+                {
+                    GameObject instantMissile =Instantiate(missile);
+                    instantMissile.GetComponent<BezierMissile>().init(this.gameObject.transform, target);
+
+                    _shotCount--;
+                }
+            }
+            yield return new WaitForSeconds(m_interval);
+        }
+        yield return null;
     }
 
     void OnCollisionEnter(Collision other) 

@@ -174,7 +174,7 @@ public class Enemy : MonoBehaviour
             Bullet bullet = other.GetComponent<Bullet>();
             curHealth -= bullet.damage;
             Vector3 reactVec = transform.position - other.transform.position;
-            Destroy(other.gameObject);
+            Destroy(other.gameObject, 0.25f);
             StartCoroutine(OnDmage(reactVec));
         }
     }
